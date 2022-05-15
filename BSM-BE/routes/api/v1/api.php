@@ -36,7 +36,4 @@ Route::group([
 
 });
 
-
-// use App\Http\Controllers\UserController;
-
-// Route::get('/user', [UserController::class, 'index']);
+//http://localhost:8080/api/v1/auth/register
