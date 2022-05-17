@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import configFile from './config/confilg.json'
+import AlertMixin from './mixins/alert'
 
 
 //Axios Global Use 
@@ -26,7 +27,7 @@ const BaseSpinner = defineAsyncComponent(() =>
     import ('./components/ui/spinners/BaseSpinner.vue'));
 app.component('base-spinner', BaseSpinner);
 
-
+app.mixin(AlertMixin);
 app.use(store);
 app.use(router);
 app.mount('#app')

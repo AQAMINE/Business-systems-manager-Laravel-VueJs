@@ -20,22 +20,12 @@ export default {
             // register
             url = this.$app_url + '/api/v1/auth/register';
             await window.axios.post(url, {
-                    email: payload.email,
-                    first_name: payload.first_name,
-                    last_name: payload.last_name,
-                    password: payload.password,
-                    password_confirmation: payload.password_confirmation,
-                })
-                // .then(response => {
-                //     const responseData = response.data.message;
-                //     console.log(responseData);
-
-            //     context.commit('setSuccess', {
-            //         success: responseData,
-            //     });
-
-            // })
-            .catch(errors => context.commit('setErrors', errors.response.data.errors));
+                email: payload.email,
+                first_name: payload.first_name,
+                last_name: payload.last_name,
+                password: payload.password,
+                password_confirmation: payload.password_confirmation,
+            }).catch(errors => context.commit('setErrors', errors.response.data.errors));
         } else {
             //login
             await window.axios.post(url, {
@@ -44,9 +34,7 @@ export default {
                 })
                 .then(response => {
                     const responseData = response.data;
-                    //Token expiration (+ convert to number)
-                    //const expiresIn = +responseData.expiresIn * 1000;
-                    const expiresIn = 3600 * 1000;
+                    const expiresIn = +responseData.expires_in * 1000;
                     const expirationDate = new Date().getTime() + expiresIn;
 
                     //Store Data in LocalStorage

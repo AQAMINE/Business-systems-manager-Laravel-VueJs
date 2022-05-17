@@ -13,17 +13,17 @@
             <div class="col-lg-8 col-md-8 col-sm-12 form-container">
                 <h1 class="text-center">Welcome Back Again ! </h1>
                 <h5 class="text-center">Reach the best service in Morocco</h5>
-                <form action="" class="form-input mt-5" >
+                <form @submit.prevent="submitForm" class="form-input mt-5" >
 
                     <div class="mt-5">
                         <!-- Error Div (You  must Toggel .d-none class) -->
-                        <div class="error-zone ">
-                            <p class="error"><i class="fa fa-triangle-exclamation"></i> Email or password incorrect please try again!</p>
+                        <div class="error-zone" v-if="!fromIsValid">
+                            <p class="error"><i class="fa fa-triangle-exclamation"></i>  Email or password incorrect please try again!</p>
                         </div>
-                        <input type="email" name="" id="email" class="form-control rounded-0" placeholder="Email">
+                        <input type="email" v-model="email" name="" id="email" class="form-control rounded-0" placeholder="Email">
                     </div>
                     <div class="mt-3">
-                        <input type="password" name="" id="password" class="form-control rounded-0" placeholder="Password">
+                        <input type="password" v-model="password" name="" id="password" class="form-control rounded-0" placeholder="Password">
                     </div>
 
 
@@ -54,7 +54,44 @@
 <script>
 
 export default {
-    
+    data(){
+        return{
+            email: '',
+            password:'',
+            fromIsValid: true,
+            isLoading:false
+        };
+    },
+    methods:{
+        async submitForm(){
+            //rest
+            this.fromIsValid = true;
+            this.$store.commit('setErrors','');
+
+            //validation
+            if (this.password === '' || !this.email.includes('@') || this.email === ''){
+                this.fromIsValid = false;
+                return this.showAlert('error','Compléter les informations utilisateur');
+            }
+            //Submit
+            const actionPayload = {
+                    email: this.email,
+                    password: this.password,
+                    
+                };
+                this.isLoading = true;
+                await this.$store.dispatch('login',actionPayload);
+                this.isLoading = false;
+
+                if(!this.$store.getters.getErrors){
+                    this.showAlert('success', 'Successful login');
+                    this.$router.replace({name : 'dashboard'});
+                }else{
+                    return this.showAlert('error','Email or password incorrect');
+                }
+
+        }
+    }
 }
 </script>
 

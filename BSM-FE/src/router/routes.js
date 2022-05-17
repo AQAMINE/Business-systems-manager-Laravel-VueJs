@@ -1,7 +1,7 @@
 // import dashboardPage from '../views/dashboardPage.vue';
 
-const home = () =>
-    import ('../views/Home.vue');
+const DashboardPage = () =>
+    import ('../views/DashboardPage.vue');
 
 const login = () =>
     import ('../views/auth/LoginPage.vue');
@@ -12,23 +12,20 @@ const register = () =>
 const routes = [{
         path: '/auth/login',
         name: 'login',
-        component: login
-
-        // meta: { requiresUnauth: true }
+        component: login,
+        meta: { requiresUnauth: true }
     },
     {
         path: '/auth/register',
         name: 'register',
-        component: register
-
-        // meta: { requiresUnauth: true }
+        component: register,
+        meta: { requiresUnauth: true }
     },
     {
         path: '/',
-        name: 'home',
-        component: home
-
-        // meta: { requiresAuth: true }
+        name: 'dashboard',
+        component: DashboardPage,
+        meta: { requiresAuth: true }
     },
 ]
 export default routes
