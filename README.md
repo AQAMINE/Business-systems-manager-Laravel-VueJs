@@ -20,5 +20,7 @@
 7. Run ```php artisan jwt:secret```
 8. Run ```php artisan serve```
 
+#### ⛔️ Change ```app_url``` to the correct laravel runing server url from  ```BSM-FE\src\config\confilg.json```
+
 <img src="https://user-images.githubusercontent.com/32686488/169119645-4e13172d-8f88-4040-9ad0-f44c3409ad01.png"/>
 <img src="https://user-images.githubusercontent.com/32686488/169119663-8855ad34-5ea0-4e9d-aec8-890d4f738409.png"/>
