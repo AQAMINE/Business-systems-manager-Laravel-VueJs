@@ -13,11 +13,13 @@
             <div class="col-lg-8 col-md-8 col-sm-12 form-container">
                 <h1 class="text-center">Welcome Back Again ! </h1>
                 <h5 class="text-center">Reach the best service in Morocco</h5>
-                <form @submit.prevent="submitForm" class="form-input mt-5" >
+                <!-- Spinner -->
+                <base-spinner v-if="isLoading" color="text-light" class="mt-5"></base-spinner>
 
+                <form v-else @submit.prevent="submitForm" class="form-input mt-5" >
                     <div class="mt-5">
                         <!-- Error Div (You  must Toggel .d-none class) -->
-                        <div class="error-zone" v-if="!fromIsValid">
+                        <div class="error-zone" v-if="loginError">
                             <p class="error"><i class="fa fa-triangle-exclamation"></i>  Email or password incorrect please try again!</p>
                         </div>
                         <input type="email" v-model="email" name="" id="email" class="form-control rounded-0" placeholder="Email">
@@ -35,7 +37,7 @@
                         </div>
                     </div>
                     <div class="mt-3  register-btn-div">
-                        <button class="btn btn-light rounded-0 register-button mb-5">Login </button>
+                        <button class="btn btn-light rounded-0 register-button mb-5 " :class="loginButton">Login </button>
                     </div>
                     <p class="login-p mt-3">Create new account? 
                                 <router-link class="to-login"  to="register">
@@ -43,8 +45,6 @@
                                 </router-link></p>
                 </form>
 
-                <!-- Spinner -->
-                <base-spinner color="text-light" class="mt-5"></base-spinner>
             </div>
         </div>
 
@@ -59,13 +59,15 @@ export default {
             email: '',
             password:'',
             fromIsValid: true,
-            isLoading:false
+            isLoading:false,
+            loginError: false
         };
     },
     methods:{
         async submitForm(){
             //rest
             this.fromIsValid = true;
+            this.loginError = true;
             this.$store.commit('setErrors','');
 
             //validation
@@ -87,7 +89,9 @@ export default {
                     this.showAlert('success', 'Successful login');
                     this.$router.replace({name : 'dashboard'});
                 }else{
-                    return this.showAlert('error','Email or password incorrect');
+                    this.loginError = true;
+                    this.showAlert('error','Email or password incorrect');
+                    
                 }
 
         }

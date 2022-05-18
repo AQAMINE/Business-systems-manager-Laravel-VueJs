@@ -5,11 +5,11 @@
                 <h1>Your Process!</h1>
                 <div class="progress-rounded ">
                     <i class="fa fa-circle-notch "></i>
-                    <span class="">100%</span>
+                    <span class="">{{prossecc}}%</span>
                 </div>
 
             </div>
-
+    
             <div class="col-lg-8 col-md-8 col-sm-12 form-container">
                 <h1 class="text-center">Set up your account </h1>
                 <h5 class="text-center">We are glad to have you onboard</h5>
@@ -19,19 +19,19 @@
                         <div class="error-zone d-none">
                             <p class="error"><i class="fa fa-triangle-exclamation"></i> Please typee your firstname !</p>
                         </div>
-                        <input type="text" name="" id="firstname" class="form-control rounded-0" placeholder="First Name">
+                        <input type="text" name="" v-model.trim="form.firstName" id="firstname" class="form-control rounded-0" placeholder="First Name">
                     </div>
                     <div class="mt-3">
-                        <input type="text" name="" id="lastname" class="form-control rounded-0" placeholder="Last Name">
+                        <input type="text" name="" v-model.trim="form.lastName" id="lastname" class="form-control rounded-0" placeholder="Last Name">
                     </div>
                     <div class="mt-3">
-                        <input type="email" name="" id="email" class="form-control rounded-0" placeholder="Email">
+                        <input type="email" name="" v-model.trim="form.email" id="email" class="form-control rounded-0" placeholder="Email">
                     </div>
                     <div class="mt-3">
-                        <input type="password" name="" id="password" class="form-control rounded-0" placeholder="Password">
+                        <input type="password" name="" v-model.trim="form.password" id="password" class="form-control rounded-0" placeholder="Password">
                     </div>
                     <div class="mt-3">
-                        <input type="password" name="" id="password2" class="form-control rounded-0" placeholder="Re enter password">
+                        <input type="password" name="" v-model.trim="form.password_confirmation" id="password2" class="form-control rounded-0" placeholder="Re enter password">
                     </div>
                     <div class="mt-3 terms-check">
                         <div class="form-check form-switch">
@@ -86,7 +86,33 @@
 
 <script>
 export default {
+    data(){
+        return{
+            form:{
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                password_confirmation: ''
+
+            }
+        }
+    },
+    methods:{
     
+    }
+    ,
+    computed:{
+        prossecc(){
+                let result = 0;
+            for(let i = 0 ; i < 5 ; i++){
+                if(Object.values(this.form)[i] !== ''){
+                    result += 20;
+                }
+            }
+            return result;
+        }
+    }
 }
 </script>
 
