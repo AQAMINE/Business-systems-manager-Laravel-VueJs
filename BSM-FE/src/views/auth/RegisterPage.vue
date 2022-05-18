@@ -35,14 +35,14 @@
                     </div>
                     <div class="mt-3 terms-check">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                            <input @change="agreementRegister" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">I agree with aqamine <a
                                     href="#" data-bs-toggle="modal" data-bs-target="#PrivacyPolicy">Terms</a>, <a href="#" data-bs-toggle="modal" data-bs-target="#PrivacyPolicy">Privacy Policy</a> and <a href="#" data-bs-toggle="modal" data-bs-target="#PrivacyPolicy">E-Sign</a>
                                 consent</label>
                         </div>
                     </div>
                     <div class="mt-3  register-btn-div">
-                        <button class="btn btn-light rounded-0 register-button mb-5">Register </button>
+                        <button class="btn btn-light rounded-0 register-button mb-5" :class="policyAgreement">Register </button>
                     </div>
                     <p class="login-p mt-3">Already have an account? <a href="login.html">Sign In <i
                                 class="fa fa-arrow-right-to-bracket"></i></a></p>
@@ -93,9 +93,10 @@ export default {
                 lastName: '',
                 email: '',
                 password: '',
-                password_confirmation: ''
+                password_confirmation: 'disabled'
 
-            }
+            },
+            policyAgreement: 'disabled'
         }
     },
     methods:{
@@ -111,6 +112,11 @@ export default {
                 }
             }
             return result;
+        }
+    },
+    methods:{
+        agreementRegister(){
+            this.policyAgreement = this.policyAgreement == 'disabled' ?  '' : 'disabled';
         }
     }
 }
