@@ -20,11 +20,14 @@ export default {
             // register
             url = this.$app_url + '/api/v1/auth/register';
             await window.axios.post(url, {
+                firstName: payload.first_name,
+                lastName: payload.last_name,
                 email: payload.email,
-                first_name: payload.first_name,
-                last_name: payload.last_name,
                 password: payload.password,
                 password_confirmation: payload.password_confirmation,
+            }).then(response => {
+                let payloadAction = response.data;
+                context.dispatch('storeData', payloadAction);
             }).catch(errors => context.commit('setErrors', errors.response.data.errors));
         } else {
             //login
@@ -34,26 +37,28 @@ export default {
                 })
                 .then(response => {
                     const responseData = response.data;
-                    const expiresIn = +responseData.expires_in * 1000;
-                    const expirationDate = new Date().getTime() + expiresIn;
+                    //Stock Data
+                    context.dispatch('storeData', responseData);
+                    // const expiresIn = +responseData.expires_in * 1000;
+                    // const expirationDate = new Date().getTime() + expiresIn;
 
-                    //Store Data in LocalStorage
-                    localStorage.setItem('user', JSON.stringify(responseData.user));
-                    localStorage.setItem('token', responseData.access_token);
-                    localStorage.setItem('userId', responseData.user.id);
-                    localStorage.setItem('tokenExpiration', expirationDate);
-                    window.axios.defaults.headers.common["Authorization"] = responseData.access_token;
+                    // //Store Data in LocalStorage
+                    // localStorage.setItem('user', JSON.stringify(responseData.user));
+                    // localStorage.setItem('token', responseData.access_token);
+                    // localStorage.setItem('userId', responseData.user.id);
+                    // localStorage.setItem('tokenExpiration', expirationDate);
+                    // window.axios.defaults.headers.common["Authorization"] = responseData.access_token;
 
-                    //After this duration "expiresIn" this function will execute 
-                    timer = setTimeout(function() {
-                        context.dispatch('autoLogout');
-                    }, expiresIn)
+                    // //After this duration "expiresIn" this function will execute 
+                    // timer = setTimeout(function() {
+                    //     context.dispatch('autoLogout');
+                    // }, expiresIn)
 
-                    context.commit('setUser', {
-                        user: responseData.user,
-                        token: responseData.access_token,
-                        userId: responseData.user.id,
-                    });
+                    // context.commit('setUser', {
+                    //     user: responseData.user,
+                    //     token: responseData.access_token,
+                    //     userId: responseData.user.id,
+                    // });
                 })
                 .catch(error => context.commit('setErrors', error));
         }
@@ -103,5 +108,27 @@ export default {
         context.dispatch('logout');
         context.commit('setAutoLogout');
 
+    },
+    storeData(context, payload) {
+        const expiresIn = +payload.expires_in * 1000;
+        const expirationDate = new Date().getTime() + expiresIn;
+
+        //Store Data in LocalStorage
+        localStorage.setItem('user', JSON.stringify(payload.user));
+        localStorage.setItem('token', payload.access_token);
+        localStorage.setItem('userId', payload.user.id);
+        localStorage.setItem('tokenExpiration', expirationDate);
+        window.axios.defaults.headers.common["Authorization"] = payload.access_token;
+
+        //After this duration "expiresIn" this function will execute 
+        timer = setTimeout(function() {
+            context.dispatch('autoLogout');
+        }, expiresIn)
+
+        context.commit('setUser', {
+            user: payload.user,
+            token: payload.access_token,
+            userId: payload.user.id,
+        });
     }
 }

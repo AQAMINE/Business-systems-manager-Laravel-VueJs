@@ -13,24 +13,38 @@
             <div class="col-lg-8 col-md-8 col-sm-12 form-container">
                 <h1 class="text-center">Set up your account </h1>
                 <h5 class="text-center">We are glad to have you onboard</h5>
-                <form action="" class="form-input mt-5" >
+                <!-- Spinner -->
+                <base-spinner v-if="isLoading"  color="text-light" class="mt-5"></base-spinner>
+                
+                <form v-else @submit.prevent="submitForm" class="form-input mt-5" >
                     <div class="mt-5">
-                        <!-- Error Div (You  must Toggel .d-none class) -->
-                        <div class="error-zone d-none">
-                            <p class="error"><i class="fa fa-triangle-exclamation"></i> Please typee your firstname !</p>
+                        <div class="error-zone" v-if="getErrors.firstName">
+                            <p class="error"><i class="fa fa-triangle-exclamation"></i> {{getErrors.firstName[0]}} !</p>
                         </div>
                         <input type="text" name="" v-model.trim="form.firstName" id="firstname" class="form-control rounded-0" placeholder="First Name">
                     </div>
                     <div class="mt-3">
+                        <div class="error-zone" v-if="getErrors.lastName">
+                            <p class="error"><i class="fa fa-triangle-exclamation"></i> {{getErrors.lastName[0]}} !</p>
+                        </div>
                         <input type="text" name="" v-model.trim="form.lastName" id="lastname" class="form-control rounded-0" placeholder="Last Name">
                     </div>
                     <div class="mt-3">
+                        <div class="error-zone" v-if="getErrors.email">
+                            <p class="error"><i class="fa fa-triangle-exclamation"></i> {{getErrors.email[0]}} !</p>
+                        </div>
                         <input type="email" name="" v-model.trim="form.email" id="email" class="form-control rounded-0" placeholder="Email">
                     </div>
                     <div class="mt-3">
+                        <div class="error-zone" v-if="getErrors.password">
+                            <p class="error"><i class="fa fa-triangle-exclamation"></i> {{getErrors.password[0]}} !</p>
+                        </div>
                         <input type="password" name="" v-model.trim="form.password" id="password" class="form-control rounded-0" placeholder="Password">
                     </div>
                     <div class="mt-3">
+                        <div class="error-zone" v-if="getErrors.password_confirmation">
+                            <p class="error"><i class="fa fa-triangle-exclamation"></i> {{getErrors.password_confirmation[0]}} !</p>
+                        </div>
                         <input type="password" name="" v-model.trim="form.password_confirmation" id="password2" class="form-control rounded-0" placeholder="Re enter password">
                     </div>
                     <div class="mt-3 terms-check">
@@ -42,14 +56,16 @@
                         </div>
                     </div>
                     <div class="mt-3  register-btn-div">
-                        <button class="btn btn-light rounded-0 register-button mb-5" :class="policyAgreement">Register </button>
+                        <button  class="btn btn-light rounded-0 register-button mb-5" :class="policyAgreement">Register </button>
                     </div>
-                    <p class="login-p mt-3">Already have an account? <a href="login.html">Sign In <i
-                                class="fa fa-arrow-right-to-bracket"></i></a></p>
+                    <p class="login-p mt-3">Already have an account? 
+                            <router-link   to="login">
+                                    <i
+                                class="fa fa-arrow-right-to-bracket"></i> Sign In
+                            </router-link> </p>
                 </form>
 
-                <!-- Spinner -->
-                <base-spinner  color="text-light" class="mt-5"></base-spinner>
+                
             </div>
         </div>
 
@@ -96,13 +112,10 @@ export default {
                 password_confirmation: 'disabled'
 
             },
-            policyAgreement: 'disabled'
+            policyAgreement: 'disabled',
+            isLoading: false
         }
     },
-    methods:{
-    
-    }
-    ,
     computed:{
         prossecc(){
                 let result = 0;
@@ -112,11 +125,40 @@ export default {
                 }
             }
             return result;
+        },
+        getErrors(){
+            return this.$store.getters.getErrors;
         }
     },
     methods:{
         agreementRegister(){
             this.policyAgreement = this.policyAgreement == 'disabled' ?  '' : 'disabled';
+        },
+        async submitForm(){
+            // Clean Old Values
+            this.$store.commit('setErrors' , '');
+
+
+            const actionPayload = {
+                first_name: this.form.firstName,
+                last_name: this.form.lastName,
+                email: this.form.email,
+                password: this.form.password,
+                password_confirmation: this.form.password_confirmation
+            }
+
+            this.isLoading = true;
+            await this.$store.dispatch('signup',actionPayload);
+            this.isLoading = false;
+
+            if(!this.getErrors){
+                this.showAlert('success','Successful registration');
+                this.$router.replace({name : 'dashboard'});
+            }else{
+                    this.policyAgreement = 'disabled'
+                    this.showAlert('error','Check your information and try again');
+                }
+            
         }
     }
 }

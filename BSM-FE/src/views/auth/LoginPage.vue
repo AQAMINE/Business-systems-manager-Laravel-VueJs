@@ -37,11 +37,11 @@
                         </div>
                     </div>
                     <div class="mt-3  register-btn-div">
-                        <button class="btn btn-light rounded-0 register-button mb-5 " :class="loginButton">Login </button>
+                        <button class="btn btn-light rounded-0 register-button mb-5 " >Login </button>
                     </div>
                     <p class="login-p mt-3">Create new account? 
                                 <router-link class="to-login"  to="register">
-                                    <i class="fa fa-arrow-right-to-bracket">  Register </i>
+                                    <i class="fa fa-arrow-right-to-bracket"> </i> Register
                                 </router-link></p>
                 </form>
 
