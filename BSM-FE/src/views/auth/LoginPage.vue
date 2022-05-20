@@ -88,6 +88,7 @@ export default {
                 if(!this.$store.getters.getErrors){
                     this.showAlert('success', 'Successful login');
                     this.$router.replace({name : 'dashboard'});
+                    
                 }else{
                     this.loginError = true;
                     this.showAlert('error','Email or password incorrect');

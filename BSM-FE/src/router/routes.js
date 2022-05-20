@@ -8,8 +8,14 @@ const login = () =>
 
 const register = () =>
     import ('../views/auth/RegisterPage.vue');
+const settings = () =>
+    import ('../views/settings/SettingsPage.vue');
 
 const routes = [{
+        path: '/',
+        redirect: '/dashboard'
+    },
+    {
         path: '/auth/login',
         name: 'login',
         component: login,
@@ -22,9 +28,15 @@ const routes = [{
         meta: { requiresUnauth: true }
     },
     {
-        path: '/',
-        name: 'dashboard',
+        path: '/settings',
+        component: settings,
+        name: 'settings',
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/dashboard',
         component: DashboardPage,
+        name: 'dashboard',
         meta: { requiresAuth: true }
     },
 ]
