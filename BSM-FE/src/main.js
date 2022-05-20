@@ -5,6 +5,8 @@ import store from './store'
 import configFile from './config/confilg.json'
 import AlertMixin from './mixins/alert'
 
+//Global Style
+import './assets/css/main.css';
 
 //Axios Global Use 
 window.axios = require('axios');
@@ -25,7 +27,13 @@ store.$app_url = configFile.app_url;
 /*Global Components*/
 const BaseSpinner = defineAsyncComponent(() =>
     import ('./components/ui/spinners/BaseSpinner.vue'));
+const TheHeader = defineAsyncComponent(() =>
+    import ('./components/layout/TheHeader.vue'));
+const TheSidebar = defineAsyncComponent(() =>
+    import ('./components/layout/TheSidebar.vue'));
 app.component('base-spinner', BaseSpinner);
+app.component('the-header', TheHeader);
+app.component('the-sidebar', TheSidebar);
 
 app.mixin(AlertMixin);
 app.use(store);
