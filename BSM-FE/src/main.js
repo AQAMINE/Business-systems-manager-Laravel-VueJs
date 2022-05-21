@@ -31,9 +31,19 @@ const TheHeader = defineAsyncComponent(() =>
     import ('./components/layout/TheHeader.vue'));
 const TheSidebar = defineAsyncComponent(() =>
     import ('./components/layout/TheSidebar.vue'));
+const BaseCard = defineAsyncComponent(() =>
+    import ('./components/ui/cards/BaseCard.vue'));
+const AnalyticalCard = defineAsyncComponent(() =>
+    import ('./components/ui/cards/AnalyticalCard.vue'));
+
 app.component('base-spinner', BaseSpinner);
 app.component('the-header', TheHeader);
 app.component('the-sidebar', TheSidebar);
+app.component('base-card', BaseCard);
+app.component('analytical-card', AnalyticalCard);
+
+
+
 
 app.mixin(AlertMixin);
 app.use(store);
