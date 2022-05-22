@@ -6,7 +6,7 @@
                     <h6 class="card-title text-light text-muted">{{title}}</h6>
                     <div class="row">
                         <div class="col-8 containt">
-                            <p class="text-light">{{number}} <span>{{change}} This week</span></p> 
+                            <p class="text-light">{{number}}  <span>{{change}} This week</span></p> 
                         </div>
                         
                         <div class="col-3 text-center logo">
@@ -44,6 +44,7 @@ export default {
 .card .card-body .containt p span{
     font-size: 18px;
     color: #0fbe55;
+    margin-left: 3px;
 }
 
 
