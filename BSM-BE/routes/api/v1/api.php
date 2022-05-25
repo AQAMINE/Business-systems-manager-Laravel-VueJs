@@ -34,8 +34,6 @@ Route::group([
     Route::post('refresh', [AuthController::class , 'refresh']);
     Route::post('me', [AuthController::class , 'me']);
     Route::post('register' , [AuthController::class , 'register']);
-
-
 });
 
 //http://localhost:8080/api/v1/auth/register

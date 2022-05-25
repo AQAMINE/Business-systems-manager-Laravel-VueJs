@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Http\Resources\TaskResource;
+use Auth;
 class taskController extends Controller
 {
     /**
@@ -19,7 +21,11 @@ class taskController extends Controller
     public function index()
     {
         //
-        return response()->json(Task::all());
+        // $data = Task::with(['user']);
+        // // $data = Task::all();
+        return  TaskResource::collection(Task::where('user_id' , Auth::id())->get());
+
+
     }
 
     /**
@@ -43,6 +49,7 @@ class taskController extends Controller
     public function show($id)
     {
         //
+        return response()->json(Task::find($id));
     }
 
     /**

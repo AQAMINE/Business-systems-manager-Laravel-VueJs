@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->id();
-            $table->string('task');
-            $table->boolean('complated')->default(0);
-            $table->date('lastDate');
-            $table->boolean('public')->default(0);
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            //
+            $table->unsignedBigInteger('user_id')->after('id');
+            $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
-
-
 
     /**
      * Reverse the migrations.
@@ -32,6 +28,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::table('tasks', function (Blueprint $table) {
+            //
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
+        });
     }
 };
