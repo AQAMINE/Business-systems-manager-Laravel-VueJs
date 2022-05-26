@@ -23,7 +23,6 @@ class Task extends Model
     {
         return $this->belongsTo('App\Models\User');
         // return $this->belongsTo(User::class , 'user_id');
-
     }
 
 }

@@ -88,7 +88,8 @@ class AuthController extends Controller
                 'firstName' => auth()->user()->firstName,
                 'lastName' => auth()->user()->lastName,
                 'email' => auth()->user()->email,
-            ]
+            ],
+            'role' => auth()->user()->roles[0]->name
         ]);
     }
 

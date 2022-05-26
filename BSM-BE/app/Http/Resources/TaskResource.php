@@ -24,9 +24,13 @@ class TaskResource extends JsonResource
             'created_at' => $this->created_at,
             'lastDate' => $this->lastDate,
             'public' => $this->public,
-            'user' => $this->user
+            'user' => [
+                'firstName' => $this->user->firstName,
+                'lastName' => $this->user->lastName,
+                'email' => $this->user->email,
+                'profilePicture' => $this->user->profilePicture
+            ]
 
         ];
-        // return parent::toArray($request);
     }
 }
