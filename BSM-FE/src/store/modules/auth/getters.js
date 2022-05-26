@@ -5,6 +5,9 @@ export default {
     userId(state) {
         return state.userId;
     },
+    getRole(state) {
+        return state.role;
+    },
     getErrors(state) {
         return state.errors;
     },

@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import configFile from './config/confilg.json'
 import AlertMixin from './mixins/alert'
-
+import RolesMixin from './mixins/roles'
 //Global Style
 import './assets/css/main.css';
 
@@ -20,6 +20,9 @@ const app = createApp(App);
 //Config
 app.config.globalProperties.$config = configFile;
 store.$app_url = configFile.app_url;
+
+
+
 
 
 
@@ -46,6 +49,8 @@ app.component('analytical-card', AnalyticalCard);
 
 
 app.mixin(AlertMixin);
+app.mixin(RolesMixin);
+
 app.use(store);
 app.use(router);
 app.mount('#app')

@@ -39,26 +39,6 @@ export default {
                     const responseData = response.data;
                     //Stock Data
                     context.dispatch('storeData', responseData);
-                    // const expiresIn = +responseData.expires_in * 1000;
-                    // const expirationDate = new Date().getTime() + expiresIn;
-
-                    // //Store Data in LocalStorage
-                    // localStorage.setItem('user', JSON.stringify(responseData.user));
-                    // localStorage.setItem('token', responseData.access_token);
-                    // localStorage.setItem('userId', responseData.user.id);
-                    // localStorage.setItem('tokenExpiration', expirationDate);
-                    // window.axios.defaults.headers.common["Authorization"] = responseData.access_token;
-
-                    // //After this duration "expiresIn" this function will execute 
-                    // timer = setTimeout(function() {
-                    //     context.dispatch('autoLogout');
-                    // }, expiresIn)
-
-                    // context.commit('setUser', {
-                    //     user: responseData.user,
-                    //     token: responseData.access_token,
-                    //     userId: responseData.user.id,
-                    // });
                 })
                 .catch(error => context.commit('setErrors', error));
         }
@@ -68,6 +48,7 @@ export default {
         const user = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
+        const role = localStorage.getItem('role');
         const tokenExpiration = localStorage.getItem('tokenExpiration');
 
         const expiresIn = tokenExpiration - new Date().getTime();
@@ -78,11 +59,12 @@ export default {
             context.dispatch('autoLogout');
         }, expiresIn);
 
-        if (token && userId && user) {
+        if (token && userId && user && role) {
             context.commit('setUser', {
                 user: JSON.parse(user),
                 token: token,
                 userId: userId,
+                role: role
             });
             window.axios.defaults.headers.common["Authorization"] = token;
         }
@@ -91,6 +73,7 @@ export default {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
+        localStorage.removeItem('role');
         localStorage.removeItem('tokenExpiration');
         window.axios.defaults.headers.common["Authorization"] = null;
         //if we manualy click the logout
@@ -117,6 +100,7 @@ export default {
         localStorage.setItem('user', JSON.stringify(payload.user));
         localStorage.setItem('token', payload.access_token);
         localStorage.setItem('userId', payload.user.id);
+        localStorage.setItem('role', payload.role);
         localStorage.setItem('tokenExpiration', expirationDate);
         window.axios.defaults.headers.common["Authorization"] = payload.access_token;
 

@@ -3,6 +3,7 @@ export default {
         state.user = payload.user;
         state.token = payload.token;
         state.userId = payload.userId;
+        state.role = payload.role;
         state.didAutoLogout = false;
     },
     setErrors(state, payload) {

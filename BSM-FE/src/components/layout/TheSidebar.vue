@@ -23,7 +23,7 @@
                     </li>
                 </ul>
 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdmin">
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuEmployee" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-person-dots-from-line"></i> Employee
@@ -35,7 +35,7 @@
                     </li>
                 </ul>
 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdminOrEditor">
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuCustomers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-users-between-lines"></i>  Customers
@@ -47,7 +47,7 @@
                     </li>
                 </ul>
 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdminOrEditor">
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuInvoices" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-file-invoice-dollar"></i>  Invoices
@@ -59,7 +59,7 @@
                     </li>
                 </ul>
 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdminOrEditor">
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-dice"></i>  Products
@@ -73,7 +73,7 @@
                     </li>
                 </ul>
 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdminOrEditor">
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuOrders" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-box-open"></i>  Orders
@@ -85,7 +85,7 @@
                     </li>
                 </ul>
 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdminOrEditor">
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuStock" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-boxes-stacked"></i>  Stock
@@ -97,7 +97,7 @@
                     </li>
                 </ul>
                 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdminOrEditor">
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuExpenses" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-sack-xmark"></i>  Expenses
@@ -109,10 +109,10 @@
                     </li>
                 </ul>
 
-                <ul class="nav flex-column mb-2 list-group">
+                <ul class="nav flex-column mb-2 list-group" v-if="isAdmin">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuSettings" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-gear"></i>  Settings
+                            <i class="fa fa-gear" ></i>  Settings 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuSettings">
                             <li><router-link class="dropdown-item" :to="{name: 'settings'}"> <i class="fa fa-screwdriver-wrench"></i> General settings</router-link></li>
@@ -124,7 +124,17 @@
             </div>
         </nav>
 </template>
+<script>
 
+export default {
+    
+    data(){
+        return{
+
+        }
+    }
+}
+</script>
 <style scoped>
 /*Start Icons Color*/
 .fa-list-check{
@@ -211,28 +221,12 @@ i{
     padding: 0px;
 }
 
-/* .sidebar .nav-link .feather {
-    margin-right: 4px;
-    color: #727272;
-} */
+
 
 .sidebar .nav-link.active {
     color: #2470dc;
 }
 
-/* .sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-    color: inherit;
-    
-} */
-
-/* .sidebar-heading {
-    font-size: 1rem;
-    text-transform: uppercase;
-}
-.sidebar .nav-item{
-    padding: 0px;
-} */
 .sidebar .nav-link{
     padding: .5rem 1rem;
 }

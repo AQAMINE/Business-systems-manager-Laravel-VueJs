@@ -30,7 +30,8 @@ export default{
     //show/hide sideBar and NaveBar
     isAuthenticated(){
           return this.$store.getters.isAuthenticated;
-    },
+    }
+    ,
     printClass(){
       return this.$store.getters.isAuthenticated? 'col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4' : '';
     },

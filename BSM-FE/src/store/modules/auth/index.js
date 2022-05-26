@@ -7,6 +7,7 @@ export default {
         user: [],
         userId: null,
         token: null,
+        role: null,
         errors: '',
         didAutoLogout: false,
         success: ''
