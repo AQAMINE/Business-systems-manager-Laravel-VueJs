@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Task;
-use App\Http\Resources\TaskResource;
 use Auth;
+use App\Models\Task;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+use App\Http\Api\V1\Interfaces\TaskRepositoryInterface;
+
 class taskController extends Controller
 {
     /**
@@ -15,18 +18,19 @@ class taskController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(){
+    private TaskRepositoryInterface $taskRepository;
+
+    public function __construct(TaskRepositoryInterface $taskRepository){
+        $this->taskRepository = $taskRepository;
         $this->middleware('auth:api');
         $this->middleware('role:admin');
     }
-    public function index()
+
+    public function index(): JsonResponse
     {
-        //
-        // $data = Task::with(['user']);
-        // // $data = Task::all();
-        return  TaskResource::collection(Task::where('user_id' , Auth::id())->get());
-
-
+        return response()->json([
+            'data' => $this->taskRepository->all()
+        ]);
     }
 
     /**
