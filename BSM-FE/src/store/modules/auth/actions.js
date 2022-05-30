@@ -113,6 +113,7 @@ export default {
             user: payload.user,
             token: payload.access_token,
             userId: payload.user.id,
+            role: payload.role
         });
     }
 }
