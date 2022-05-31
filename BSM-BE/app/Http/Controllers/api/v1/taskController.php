@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 
+use App\Http\Controllers\Controller;
 use App\Http\Api\V1\Interfaces\TaskRepositoryInterface;
+use App\Http\Requests\Api\V1\TasksRequests\TasksRequests;
 
 class taskController extends Controller
 {
@@ -39,9 +41,14 @@ class taskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TasksRequests $request): JsonResponse
     {
-        //
+        return response()->json(
+            [
+                'data' => $this->taskRepository->createTask($request->all())
+            ],
+            Response::HTTP_CREATED
+        );
 
     }
 
@@ -51,10 +58,16 @@ class taskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
         //
-        return response()->json(Task::find($id));
+        if($id == Auth::id()){
+            return response()->json([
+                'data' => $this->taskRepository->getTasksByUserId(Auth::id())
+            ]);
+        }else{
+            return response()->json('unauthorized');
+        }
     }
 
     /**
@@ -64,9 +77,12 @@ class taskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id , TasksRequests $request): JsonResponse
     {
-        //
+        return response()->json([
+            'data' => $this->taskRepository->updateTask($id, $request->all())
+        ]);
+
     }
 
     /**
@@ -75,8 +91,15 @@ class taskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        //
+        $this->taskRepository->deleteTask($id);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function taskState($id): JsonResponse
+    {
+        $this->taskRepository->taskState($id);
+        return response()->json('Process Done');
     }
 }

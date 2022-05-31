@@ -20,7 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// Taks
 Route::apiResource('/tasks' ,taskController::class);
+Route::patch('tasks/taskState/{id}' , [taskController::class , 'taskState']);
+
 
 Route::group([
 
