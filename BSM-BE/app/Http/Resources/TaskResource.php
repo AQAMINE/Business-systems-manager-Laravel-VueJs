@@ -21,7 +21,8 @@ class TaskResource extends JsonResource
             'user_id' => $this->user_id,
             'task' => $this->task,
             'complated' => $this->complated,
-            'created_at' => $this->created_at,
+            'created_at' => \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',  $this->created_at)
+            ->format('d-m-Y'),
             'lastDate' => $this->lastDate,
             'public' => $this->public,
             'user' => [

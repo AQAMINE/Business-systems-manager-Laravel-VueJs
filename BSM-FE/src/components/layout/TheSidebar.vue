@@ -18,7 +18,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenutask">
                         <li><router-link class="dropdown-item" :to="{name: 'dashboard'}"> <i class="fa fa-plus"></i> Add task</router-link></li>
-                        <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> Task list</a></li>
+                        <li><router-link class="dropdown-item" :to="{ name: 'tasks' }"><i class="fa fa-list"></i> Task list</router-link></li>
                     </ul>
                     </li>
                 </ul>

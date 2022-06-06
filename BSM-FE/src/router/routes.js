@@ -8,8 +8,12 @@ const login = () =>
 
 const register = () =>
     import ('../views/auth/RegisterPage.vue');
+
 const settings = () =>
     import ('../views/settings/SettingsPage.vue');
+
+const tasksList = () =>
+    import ('../views/tasks/TasksList.vue');
 
 const routes = [{
         path: '/',
@@ -39,5 +43,11 @@ const routes = [{
         name: 'dashboard',
         meta: { requiresAuth: true }
     },
+    {
+        path: '/tasks',
+        component: tasksList,
+        name: 'tasks',
+        meta: { requiresAuth: true }
+    }
 ]
 export default routes

@@ -1,8 +1,14 @@
 <template>
   <div class="home">
-    <analytical-card title="Users registered" number="22" change="+4" logo="fa-users"></analytical-card>
+    <div class="row">
+      <analytical-card class="col" title="Users Registered" number="56" change="+12" logo="fa-users"></analytical-card>
+      <analytical-card class="col" title="Uncompleted Tasks" number="10" change="+4" logo="fa-list-check"></analytical-card>
+      <analytical-card class="col" title="This Week Orders" number="300" change="+200" logo="fa-boxes-stacked"></analytical-card>
+    </div>
+    
     <base-card title="This the base card">hello </base-card>
-    <button @click="testToken">ClickMe</button>
+    <button @click="testIt">click me to get id</button>
+    
   </div>
 </template>
 
@@ -17,11 +23,8 @@ export default {
     }
   },
   methods:{
-    testToken(){
-      console.log(this.$config.app_url + '/api/v1/tasks');
-      window.axios.get(this.$config.app_url + '/api/v1/tasks').then(response  => {
-        console.log(response.data);
-      })
+    testIt(){
+      this.$store.dispatch('tasks/loadUserTasks');
     }
   }
 }

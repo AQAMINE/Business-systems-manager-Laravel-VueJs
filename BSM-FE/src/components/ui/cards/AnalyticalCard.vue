@@ -1,6 +1,6 @@
 <template>
-    <div class="row">
-        <div class="col-sm-4">
+    <!-- <div class="row">
+        <div class="col-sm-4"> -->
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title text-light text-muted">{{title}}</h6>
@@ -17,8 +17,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        <!-- </div>
+    </div> -->
 </template>
 <script>
 export default {
@@ -30,6 +30,7 @@ export default {
     background-color: #1a1c24;
     border: 1px solid rgb(26 28 36);
     background-clip: border-box;
+    margin: 2px;
 }
 .card-title{
     font-weight: bold;
