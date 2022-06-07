@@ -1,11 +1,11 @@
 <template>
     <div class="container">
+        <base-card v-if="isAdmin"><button class="btn btn-success btn-sm rounded-0">Add New Task</button></base-card>
         <div class="row">
-            <base-task v-for="task in tasks"
-            :key="task.id"
-            :avatar="task.user.profilePicture"
-            :firstName = "task.user.firstName"
-            :lastName = "task.user.lastName"
+            <base-task 
+            v-for="task in tasks"
+            :key="task.id"   
+            :user = "task.user"       
             :lastDate = "task.lastDate"
             :createdDate = "task.created_at"
             :task = "task.task"
@@ -16,11 +16,12 @@
 </template>
 
 <script>
-import BaseTask from './../../components/tasks/BaseTask.vue'
+import BaseTask from './../../components/tasks/BaseTask.vue';
 export default {
     components:{
-        BaseTask
-    },
+    BaseTask,
+    
+},
     computed:{
         tasks(){
             return this.$store.getters['tasks/tasks'];
