@@ -25,7 +25,7 @@ class taskController extends Controller
     public function __construct(TaskRepositoryInterface $taskRepository){
         $this->taskRepository = $taskRepository;
         $this->middleware('auth:api');
-        $this->middleware('role:admin');
+        $this->middleware('role:admin')->except(['show']);
     }
 
     public function index(): JsonResponse
