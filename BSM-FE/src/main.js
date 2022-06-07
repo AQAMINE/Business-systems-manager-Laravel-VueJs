@@ -38,12 +38,15 @@ const BaseCard = defineAsyncComponent(() =>
     import ('./components/ui/cards/BaseCard.vue'));
 const AnalyticalCard = defineAsyncComponent(() =>
     import ('./components/ui/cards/AnalyticalCard.vue'));
+const BasePlaceholder = defineAsyncComponent(() =>
+    import ('./components/ui/placeholders/BasePlaceholder.vue'));
 
 app.component('base-spinner', BaseSpinner);
 app.component('the-header', TheHeader);
 app.component('the-sidebar', TheSidebar);
 app.component('base-card', BaseCard);
 app.component('analytical-card', AnalyticalCard);
+app.component('base-placeholder', BasePlaceholder);
 
 
 

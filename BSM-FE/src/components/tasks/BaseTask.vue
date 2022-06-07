@@ -8,7 +8,7 @@
                 <h6 class="card-subtitle mb-2 lastDate"><i class="fa fa-calendar-xmark"></i> Last Date {{lastDate}}</h6>
                 <p class="card-text">{{task}}</p>
                 <hr>
-                <div class="text-right"><a href="#" class="btn btn-danger btn-sm rounded-0 pull-left">Delete <i class="fa fa-trash-can"></i></a> <a href="#" class="btn btn-success btn-sm rounded-0 pull-left">Done <i class="fa fa-check"></i></a></div>
+                <div class="text-right"><a href="#" v-if="isAdmin" class="btn btn-danger btn-sm rounded-0 pull-left">Delete <i class="fa fa-trash-can"></i></a> <a href="#" v-if="isAdmin" class="btn btn-success btn-sm rounded-0">Edit <i  class="fa fa-edit"></i></a> <a href="#" class="btn btn-success btn-sm rounded-0 pull-left">Done <i class="fa fa-check"></i></a></div>
                 
             </div>
         </div>
