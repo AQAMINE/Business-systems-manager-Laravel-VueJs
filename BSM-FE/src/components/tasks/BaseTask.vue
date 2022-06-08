@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-4 col-md-6 col-ms-12">
+    <div class="col-lg-3 col-md-6 col-ms-12">
         <div class="card text-light mt-2  " style="width: 18rem;">
             <div class="card-body">
                 <h6 class="card-title mb-3"> <img class="rounded avatar" :src="profilePicture" alt=""> {{fullName}} </h6>

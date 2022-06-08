@@ -3,16 +3,25 @@
         <base-card>
             <div class="row">
                 <div class="col-3" v-if="isAdmin">
-                    <button class="btn btn-success btn-sm rounded-0">Add New Task <i class="fa fa-plus"></i></button>
+                    <button class="btn btn-success rounded-0">Add New Task <i class="fa fa-plus"></i></button>
+                </div>
+                <div class="col-3"> 
+                    <button to="" @click="loadTasks" class="btn btn-danger rounded-0  position-relative">
+                        Undone tasks
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{undoneTasksCounter}}+
+                            <span class="visually-hidden">Undone tasks</span>
+                        </span>
+                    </button>
                 </div>
                 <div class="col-3">
-                    <h6 class="text-light"><span class="badge bg-secondary">Total tasks: {{totalTasks}}</span> </h6>
-                </div>
-                <div class="col-3">
-                    <h6 class="text-light badge bg-danger">Undone tasks: {{undoneTasksCounter}}</h6>
-                </div>
-                <div class="col-3">
-                    <h6 class="text-light badge bg-success">Tasks Done: {{taskDone}}</h6>
+                    <button @click="loadTasks(true)" class="btn btn-success rounded-0  position-relative">
+                        Tasks Done
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                            {{taskDone}}+
+                            <span class="visually-hidden">Tasks Dones</span>
+                        </span>
+                    </button>
                 </div>
             </div>
         
@@ -21,7 +30,7 @@
         <base-placeholder v-if="isLoading" class="mt-5" ></base-placeholder>
         <div class="row" v-else>
             <base-task 
-            v-for="task in undoneTasks"
+            v-for="task in tasks"
             :key="task.id"   
             :user = "task.user"       
             :lastDate = "task.lastDate"
@@ -42,6 +51,7 @@ export default {
 },
     data(){
     return{
+        tasks: [],
         isLoading : false
     }
 }
@@ -58,24 +68,37 @@ export default {
             
             return result;
         },
-        totalTasks(){
-            return this.$store.getters['tasks/tasks'].length;
-        },
         undoneTasksCounter(){
             return this.undoneTasks.length;
         },
         taskDone(){
-            return this.totalTasks - this.undoneTasksCounter;
+            return this.$store.getters['tasks/tasks'].length - this.undoneTasksCounter;
         }
     },
     created(){
         this.loadTasks();
     },
     methods:{
-        async loadTasks(){
+        async loadTasks(state = false){
             this.isLoading = true;
             await this.$store.dispatch('tasks/loadUserTasks');
+            this.getTasks(state);
             this.isLoading = false;
+        },
+        getTasks(state = true){
+            const complatedTasks = [];
+            const incompleteTasks = [];
+            const tasks = this.$store.getters['tasks/tasks'];
+
+            for (const key  in tasks){
+                if(tasks[key].complated == true){
+                    complatedTasks.push({...tasks[key]});
+                }else{
+                    incompleteTasks.push({...tasks[key]});
+                }
+
+            }
+            return state == true ? this.tasks = complatedTasks : this.tasks = incompleteTasks;
         }
     }
 }
