@@ -17,7 +17,7 @@
                         <i class="fa fa-list-check"></i> Tasks
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenutask">
-                        <li v-if="isAdmin"><router-link class="dropdown-item" :to="{name: 'dashboard'}"> <i class="fa fa-plus"></i> Add task</router-link></li>
+                        <li v-if="isAdmin"><router-link class="dropdown-item" :to="{name: 'addTask'}"> <i class="fa fa-plus"></i> Add task</router-link></li>
                         <li><router-link class="dropdown-item" :to="{ name: 'tasks' }"><i class="fa fa-list"></i> Task list</router-link></li>
                     </ul>
                     </li>
