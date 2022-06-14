@@ -24,9 +24,16 @@
                     </button>
                 </div>
             </div>
-        
-        
         </base-card>
+
+        <delete-dialog 
+        :title="'Warning!'" 
+        :content="'Sure you want to delete this task?'" 
+        :btnType="'btn-danger'"
+        :confirmBtnText ="'Delete Task'"
+        @deleteItem ="deleteTask"
+        ></delete-dialog>
+
         <base-placeholder v-if="isLoading" class="mt-5" ></base-placeholder>
         <div class="row" v-else>
             <base-task 
@@ -37,6 +44,8 @@
             :createdDate = "task.created_at"
             :task = "task.task"
             :id = "task.id"
+            :taskState = "task.complated"
+            @reLoadTasks = "loadTasks"
             ></base-task>
         </div>
     </div>
@@ -44,9 +53,11 @@
 
 <script>
 import BaseTask from './../../components/tasks/BaseTask.vue';
+import DeleteDialog  from '../../components/ui/dialogue/DeleteDialogue.vue';
 export default {
     components:{
     BaseTask,
+    DeleteDialog
     
 },
     data(){
@@ -96,9 +107,14 @@ export default {
                 }else{
                     incompleteTasks.push({...tasks[key]});
                 }
-
             }
             return state == true ? this.tasks = complatedTasks : this.tasks = incompleteTasks;
+        },
+        async deleteTask(){
+            const taskId = this.$store.getters['tasks/deletedItem'];
+            await this.$store.dispatch('tasks/deleteTask' , taskId);
+            this.$store.commit('tasks/setDeletedItem' , null);
+            this.loadTasks();
         }
     }
 }
