@@ -113,6 +113,7 @@ export default {
         async deleteTask(){
             const taskId = this.$store.getters['tasks/deletedItem'];
             await this.$store.dispatch('tasks/deleteTask' , taskId);
+            this.showAlert('success', 'Task Deleted!');
             this.$store.commit('tasks/setDeletedItem' , null);
             this.loadTasks();
         }

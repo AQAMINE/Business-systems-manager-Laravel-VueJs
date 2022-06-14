@@ -16,6 +16,7 @@ export default {
     },
     async deleteTask(context, payload) {
         const url = this.$app_url + '/api/v1/tasks/' + payload.id;
-        console.log(url);
+        await window.axios.delete(url).catch(errors => context.commit('setErrors', errors));
+
     }
 }
