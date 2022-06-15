@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\api\v1\auth\AuthController;
 use App\Http\Controllers\api\v1\taskController;
+use App\Http\Controllers\api\v1\userController;
+use App\Http\Controllers\api\v1\auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('/tasks' ,taskController::class);
 Route::patch('tasks/taskState/{id}' , [taskController::class , 'taskState']);
 
+//Users
+Route::apiResource('/users' , userController::class);
 
 Route::group([
 

@@ -18,7 +18,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'firstName' => $this->firstName,
-            // 'task' => new TaskResource($tasks)
+            'lastName' => $this->lastName
         ];
         // return parent::toArray($request);
     }
