@@ -57,7 +57,16 @@
 
     </div>
 </template>
-
+<script>
+export default {
+    data(){
+        return{
+            
+        }
+    },
+    
+}
+</script>
 <style scoped>
 
 .form-select, .form-control{
