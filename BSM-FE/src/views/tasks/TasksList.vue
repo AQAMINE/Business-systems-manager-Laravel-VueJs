@@ -3,7 +3,7 @@
         <base-card>
             <div class="row">
                 <div class="col-3" v-if="isAdmin">
-                    <button class="btn btn-success rounded-0">Add New Task <i class="fa fa-plus"></i></button>
+                    <router-link :to="{name: 'addTask'}" class="btn btn-success rounded-0">Add New Task <i class="fa fa-plus"></i></router-link>
                 </div>
                 <div class="col-3"> 
                     <button to="" @click="loadTasks" class="btn btn-danger rounded-0  position-relative">

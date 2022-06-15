@@ -15,6 +15,9 @@ const settings = () =>
 const tasksList = () =>
     import ('../views/tasks/TasksList.vue');
 
+const addTask = () =>
+    import ('../views/tasks/AddNewTask.vue');
+
 const routes = [{
         path: '/',
         redirect: '/dashboard'
@@ -47,6 +50,11 @@ const routes = [{
         path: '/tasks',
         component: tasksList,
         name: 'tasks',
+        meta: { requiresAuth: true }
+    }, {
+        path: '/tasks/add',
+        component: addTask,
+        name: 'addTask',
         meta: { requiresAuth: true }
     }
 ]

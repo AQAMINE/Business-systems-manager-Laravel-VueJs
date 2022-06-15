@@ -18,5 +18,14 @@ export default {
         const url = this.$app_url + '/api/v1/tasks/' + payload.id;
         await window.axios.delete(url).catch(errors => context.commit('setErrors', errors));
 
+    },
+    async createTask(context, payload) {
+        const url = this.$app_url + '/api/v1/tasks';
+        await window.axios.post(url, {
+            user_id: payload.user_id,
+            task: payload.task,
+            lastDate: payload.lastDate
+
+        }).catch(errors => context.commit('setErrors', errors));
     }
 }
