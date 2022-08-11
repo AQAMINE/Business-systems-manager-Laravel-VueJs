@@ -24,6 +24,7 @@ export default {
         await window.axios.post(url, {
             user_id: payload.user_id,
             task: payload.task,
+            public: payload.public,
             lastDate: payload.lastDate
 
         }).catch(errors => context.commit('setErrors', errors));

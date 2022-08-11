@@ -6,7 +6,7 @@ export default {
     namespaced: true,
     state: {
         tasks: [{}],
-        errors: null,
+        errors: false,
         success: null,
         deletedItem: null
     },

@@ -11,7 +11,7 @@
                 <hr>
                 <div class="text-right action-btn">
                     <a v-if="isAdmin" class="btn btn-danger btn-sm rounded-0  " data-bs-toggle="modal" data-bs-target="#deleteDialogue" @click="setDeleteTaskId">Delete <i class="fa fa-trash-can"></i></a>
-                    <a v-if="isAdmin" class="btn btn-success btn-sm rounded-0 ">Edit <i  class="fa fa-edit"></i></a>
+                    <a v-if="isAdmin" class="btn btn-success btn-sm rounded-0 " data-bs-toggle="modal" data-bs-target="#editTskDaialogue">Edit <i  class="fa fa-edit"></i></a>
                     <a v-if="taskState" class="btn btn-warning btn-sm rounded-0 " @click="taskStateChenge">Undone <i class="fa fa-hourglass"></i></a>
                     <a v-else class="btn btn-success btn-sm rounded-0" @click="taskStateChenge">Done <i class="fa fa-check"></i></a></div>
                 

@@ -26,6 +26,8 @@
             </div>
         </base-card>
 
+        <edit-task></edit-task>
+        
         <delete-dialog 
         :title="'Warning!'" 
         :content="'Sure you want to delete this task?'" 
@@ -54,10 +56,12 @@
 <script>
 import BaseTask from './../../components/tasks/BaseTask.vue';
 import DeleteDialog  from '../../components/ui/dialogue/DeleteDialogue.vue';
+import EditTask from './../../components/tasks/ui/EditDialog.vue'
 export default {
     components:{
     BaseTask,
-    DeleteDialog
+    DeleteDialog,
+    EditTask
     
 },
     data(){
@@ -116,6 +120,9 @@ export default {
             this.showAlert('success', 'Task Deleted!');
             this.$store.commit('tasks/setDeletedItem' , null);
             this.loadTasks();
+        },
+        showEditData(id,userId,task,lastDate,privacy){
+            return console.log(id + ' ' + userId + ' ' + task + ' ' + lastDate + ' '  + privacy);
         }
     }
 }
